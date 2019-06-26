@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mytomcat-deploy
+spec:
+  replicas: 2
+  minReadySeconds: 11
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: mytomcat
+        version: 2.7.1
+    spec:
+      containers:
+      - name: mytomcat
+        image: jenkins:2.7.1
+        ports:
+        - containerPort: 8080
